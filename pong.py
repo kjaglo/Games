@@ -38,7 +38,8 @@ ball.speed(0)  # max possible speed
 ball.shape("circle")
 ball.color("white")
 ball.penup()  # do not draw a line
-
+ball.dx = 0.5
+ball.dy = 0.5
 # functions
 
 
@@ -81,4 +82,23 @@ print(help(paddle_a.ycor))
 while True:
     window.update()
 
+    # move the ball
+    ball.setx(ball.xcor()+ball.dx)
+    ball.sety(ball.ycor()+ball.dy)
+
+
+    # border checking
+
+    if ball.xcor()> width/2 - 10:
+        ball.setx(width/2 - 10)
+        ball.dx *= -1
+    if ball.ycor() >height/2 - 10:
+        ball.sety(height/2 - 10)
+        ball.dy *= -1
+    if ball.xcor() < -width/2 + 10:
+        ball.setx(-width/2 + 10)
+        ball.dx *= -1
+    if ball.ycor() <-height/2 + 10:
+        ball.sety(-height/2 + 10)
+        ball.dy *= -1
 
