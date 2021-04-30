@@ -38,8 +38,8 @@ ball.speed(0)  # max possible speed
 ball.shape("circle")
 ball.color("white")
 ball.penup()  # do not draw a line
-ball.dx = 0.5
-ball.dy = 0.5
+ball.dx = 0.1
+ball.dy = 0.1
 # functions
 
 
@@ -75,7 +75,7 @@ window.onkeypress(paddle_a_down, 's')  # when a user presses 'w' call function u
 window.onkeypress(paddle_b_up, 'Up')  # when a user presses 'w' call function up
 window.onkeypress(paddle_b_down, 'Down')  # when a user presses 'w' call function up
 
-print(help(paddle_a.ycor))
+# print(help(paddle_a.ycor))
 
 
 # main game loop
@@ -86,19 +86,24 @@ while True:
     ball.setx(ball.xcor()+ball.dx)
     ball.sety(ball.ycor()+ball.dy)
 
-
     # border checking
 
-    if ball.xcor()> width/2 - 10:
-        ball.setx(width/2 - 10)
-        ball.dx *= -1
+    # if ball.xcor()> width/2 - 10:
+    #     ball.setx(width/2 - 10)
+    #     ball.dx *= -1
     if ball.ycor() >height/2 - 10:
         ball.sety(height/2 - 10)
         ball.dy *= -1
-    if ball.xcor() < -width/2 + 10:
-        ball.setx(-width/2 + 10)
-        ball.dx *= -1
+    # if ball.xcor() < -width/2 + 10:
+    #     ball.setx(-width/2 + 10)
+    #     ball.dx *= -1
     if ball.ycor() <-height/2 + 10:
         ball.sety(-height/2 + 10)
         ball.dy *= -1
+    if ball.xcor() >= paddle_b.xcor():
+        if ball.ycor() <paddle_b.ycor()+140:
+            if ball.ycor() > paddle_b.ycor():
+                ball.setx(paddle_b.xcor())
+                ball.dx *= -1
+                print("yes")
 
