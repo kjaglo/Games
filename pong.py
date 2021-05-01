@@ -2,8 +2,19 @@ import turtle
 
 # for graphics
 
+# Parameters
+
+speed_x = 1/4
+speed_y = 1/4
+
+
+# Dimension
 width = 1000
 height = 800
+
+# Score
+score_a = 0
+score_b = 0
 
 window = turtle.Screen()
 window.title("Ping-pong")
@@ -35,9 +46,16 @@ ball.speed(0)  # max possible speed
 ball.shape("circle")
 ball.color("white")
 ball.penup()  # do not draw a line
-ball.dx = 1 / 4
-ball.dy = 1 / 4
+ball.dx = speed_x
+ball.dy = speed_y
 
+# pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 360)
 
 # functions
 
@@ -70,6 +88,11 @@ def paddle_b_down():
         paddle_b.sety(y)
 
 
+def pen_update():
+    pen.clear()
+    pen.write("Player A: {}   Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
+
+
 # Keyboard binding
 
 window.listen()  # listen for a keyboard input
@@ -80,6 +103,7 @@ window.onkeypress(paddle_b_down, 'Down')  # when a user presses 'w' call functio
 
 # print(help(paddle_a.ycor))
 
+pen_update()
 
 # main game loop
 while True:
@@ -93,9 +117,14 @@ while True:
     if ball.xcor() > width / 2 - 10:
         ball.goto(0, 0)
         ball.dx *= -1
+        score_a += 10
+        pen_update()
+
     if ball.xcor() < -width / 2 + 10:
         ball.goto(0, 0)
         ball.dx *= -1
+        score_b += 10
+        pen_update()
 
     # border checking
     if ball.ycor() > height / 2 - 10:
@@ -107,16 +136,22 @@ while True:
         ball.dy *= -1
 
     # paddle - ball collisions
-    if (ball.xcor() > 440 and ball.xcor()<450) and (ball.ycor() < paddle_b.ycor() + 70 and ball.ycor() > paddle_b.ycor() - 70):
+    if (ball.xcor() > 440 and ball.xcor() < 450) and (
+            ball.ycor() < paddle_b.ycor() + 70 and ball.ycor() > paddle_b.ycor() - 70):
         ball.setx(440)
         ball.dx *= -1
+        score_b += 1
+        pen_update()
 
-    if (ball.xcor() < -440 and ball.xcor()>-450) and (ball.ycor() < paddle_a.ycor() + 70 and ball.ycor() > paddle_a.ycor() - 70):
+    if (ball.xcor() < -440 and ball.xcor() > -450) and (
+            ball.ycor() < paddle_a.ycor() + 70 and ball.ycor() > paddle_a.ycor() - 70):
         ball.setx(-440)
         ball.dx *= -1
+        score_a += 1
+        pen_update()
 
-    print("BALL x:", ball.xcor(), "y:", ball.ycor())
-    print("PADDLE B x:", paddle_b.xcor(), "y:", paddle_b.ycor())
-    print("-" * 30)
+    # print("BALL x:", ball.xcor(), "y:", ball.ycor())
+    # print("PADDLE B x:", paddle_b.xcor(), "y:", paddle_b.ycor())
+    # print("-" * 30)
 
 # paddle_b 330 up to -320
