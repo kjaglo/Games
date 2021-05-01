@@ -35,8 +35,8 @@ ball.speed(0)  # max possible speed
 ball.shape("circle")
 ball.color("white")
 ball.penup()  # do not draw a line
-ball.dx = 0.1
-ball.dy = 0.1
+ball.dx = 1 / 4
+ball.dy = 1 / 4
 
 
 # functions
@@ -89,31 +89,32 @@ while True:
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
 
-    # border checking
-
+    # game over and play again
     if ball.xcor() > width / 2 - 10:
-        ball.goto(0,0)
+        ball.goto(0, 0)
         ball.dx *= -1
     if ball.xcor() < -width / 2 + 10:
         ball.goto(0, 0)
         ball.dx *= -1
+
+    # border checking
     if ball.ycor() > height / 2 - 10:
         ball.sety(height / 2 - 10)
         ball.dy *= -1
-    # if ball.xcor() < -width/2 + 10:
-    #     ball.setx(-width/2 + 10)
-    #     ball.dx *= -1
+
     if ball.ycor() < -height / 2 + 20:
         ball.sety(-height / 2 + 20)
         ball.dy *= -1
+
+    # paddle - ball collisions
+    if ball.xcor() > 440 and (ball.ycor() < paddle_b.ycor() + 70 and ball.ycor() > paddle_b.ycor() - 70):
+        ball.dx *= -1
+
+    if ball.xcor() < -440 and (ball.ycor() < paddle_a.ycor() + 70 and ball.ycor() > paddle_a.ycor() - 70):
+        ball.dx *= -1
+
     print("BALL x:", ball.xcor(), "y:", ball.ycor())
     print("PADDLE B x:", paddle_b.xcor(), "y:", paddle_b.ycor())
     print("-" * 30)
-    # if ball.xcor() >= width/2-10:
-    #     if ball.ycor() <paddle_b.ycor()+140:
-    #         if ball.ycor() > paddle_b.ycor():
-    #             ball.setx(paddle_b.xcor())
-    #             ball.dx *= -1
-    #             print("yes")
 
 # paddle_b 330 up to -320
