@@ -107,10 +107,12 @@ while True:
         ball.dy *= -1
 
     # paddle - ball collisions
-    if ball.xcor() > 440 and (ball.ycor() < paddle_b.ycor() + 70 and ball.ycor() > paddle_b.ycor() - 70):
+    if (ball.xcor() > 440 and ball.xcor()<450) and (ball.ycor() < paddle_b.ycor() + 70 and ball.ycor() > paddle_b.ycor() - 70):
+        ball.setx(440)
         ball.dx *= -1
 
-    if ball.xcor() < -440 and (ball.ycor() < paddle_a.ycor() + 70 and ball.ycor() > paddle_a.ycor() - 70):
+    if (ball.xcor() < -440 and ball.xcor()>-450) and (ball.ycor() < paddle_a.ycor() + 70 and ball.ycor() > paddle_a.ycor() - 70):
+        ball.setx(-440)
         ball.dx *= -1
 
     print("BALL x:", ball.xcor(), "y:", ball.ycor())
