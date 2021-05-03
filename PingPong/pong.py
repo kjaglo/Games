@@ -1,13 +1,14 @@
 import turtle
 # for graphics
 import winsound
+
+import os
 # for interacting with the operating system
 
 # Parameters
 
-speed_x = 1/4
-speed_y = 1/4
-
+speed_x = 1 / 4
+speed_y = 1 / 4
 
 # Dimension
 width = 1000
@@ -58,6 +59,7 @@ pen.penup()
 pen.hideturtle()
 pen.goto(0, 360)
 
+
 # functions
 
 
@@ -106,6 +108,10 @@ window.onkeypress(paddle_b_down, 'Down')  # when a user presses 'w' call functio
 
 pen_update()
 
+# sound path
+script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
+rel_path = "../PingPong/bounce.wav"
+
 # main game loop
 while True:
     window.update()
@@ -143,7 +149,8 @@ while True:
         ball.dx *= -1
         score_b += 1
         pen_update()
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        abs_file_path = os.path.join(script_dir, rel_path)
+        winsound.PlaySound(abs_file_path, winsound.SND_ASYNC)
 
     if (ball.xcor() < -440 and ball.xcor() > -450) and (
             ball.ycor() < paddle_a.ycor() + 70 and ball.ycor() > paddle_a.ycor() - 70):
@@ -151,10 +158,9 @@ while True:
         ball.dx *= -1
         score_a += 1
         pen_update()
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        winsound.PlaySound(abs_file_path, winsound.SND_ASYNC)
 
     # print("BALL x:", ball.xcor(), "y:", ball.ycor())
     # print("PADDLE B x:", paddle_b.xcor(), "y:", paddle_b.ycor())
     # print("-" * 30)
-
-# paddle_b 330 up to -320
+    # paddle_b 330 up to -320
