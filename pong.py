@@ -1,6 +1,7 @@
 import turtle
-
 # for graphics
+import winsound
+# for interacting with the operating system
 
 # Parameters
 
@@ -142,6 +143,7 @@ while True:
         ball.dx *= -1
         score_b += 1
         pen_update()
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
     if (ball.xcor() < -440 and ball.xcor() > -450) and (
             ball.ycor() < paddle_a.ycor() + 70 and ball.ycor() > paddle_a.ycor() - 70):
@@ -149,6 +151,7 @@ while True:
         ball.dx *= -1
         score_a += 1
         pen_update()
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
     # print("BALL x:", ball.xcor(), "y:", ball.ycor())
     # print("PADDLE B x:", paddle_b.xcor(), "y:", paddle_b.ycor())
