@@ -4,15 +4,17 @@ import pygame
 import tkinter as tk
 from tkinter import messagebox
 
+
 class cube(object):
-    rows =0
-    w=0
+    rows = 0
+    w = 0
+
     def __init__(self):
         pass
 
 
 class snake(object):
-    body =[]
+    body = []
     turns = {}
 
     def __init__(self, color, position):
@@ -48,6 +50,13 @@ class snake(object):
                     self.dirny = 1
                     self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
 
+        for i, c in enumerate(self.body):  # index and cube object
+            p = c.position[:]
+            if p in self.turns: # if position is in the turns
+                turn = self.turns[p]
+                c.move(turn[0], turn[1])
+                if i == len(self.body):
+                    self.turns.pop(p)
 
 
 def drawGrid(w, rows, surface):
