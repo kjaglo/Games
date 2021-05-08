@@ -6,11 +6,25 @@ from tkinter import messagebox
 
 
 class cube(object):
-    rows = 0
-    w = 0
+    rows = 20
+    w = 500
 
-    def __init__(self):
-        pass
+    def __init__(self, start, dirnx=1, dirny=0, color=(255, 0, 0)):
+        self.pos = start
+        self.dirnx = 1
+        self.dirny = 0
+        self.color = color
+
+    def move(self, dirnx, dirny):
+        self.dirnx = dirnx
+        self.dirny = dirny
+        self.pos(self.pos[0] + self.dirnx, self.pos[1] + self.dirny)
+
+    def draw(self, surface, eyes=False):
+        dis = self.w // self.rows
+        i = self.pos[0]  # row
+        j = self.pos[1]  # column
+        pygame.draw.rect(surface, self.color, (i * dis + 1, j * dis + 1, dis - 2, dis - 2))
 
 
 class snake(object):
@@ -70,21 +84,18 @@ class snake(object):
                 else:  # not turning not going to the egdes
                     c.move(c.dirnx, c.dirny)
 
+    def reset(self, pos):
+        pass
 
-def reset(self, pos):
-    pass
+    def addCube(self):
+        pass
 
-
-def addCube(self):
-    pass
-
-
-def draw(self, surface):
-    for i, c in enumerate(self.body):
-        if i == 0:
-            c.draw(surface, True)
-        else:
-            c.draw(surface)
+    def draw(self, surface):
+        for i, c in enumerate(self.body):
+            if i == 0:
+                c.draw(surface, True)
+            else:
+                c.draw(surface)
 
 
 def drawGrid(w, rows, surface):
@@ -100,14 +111,15 @@ def drawGrid(w, rows, surface):
 
 
 def redrawWindow(surface):
-    global rows, width
+    global rows, width, s
     surface.fill((0, 0, 0))
+    s.draw(surface)
     drawGrid(width, rows, surface)
     pygame.display.update()
 
 
 def main():
-    global rows, width
+    global rows, width, s
     width = 500
     rows = 20
 
