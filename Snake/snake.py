@@ -52,23 +52,39 @@ class snake(object):
 
         for i, c in enumerate(self.body):  # index and cube object
             p = c.position[:]
-            if p in self.turns: # if position is in the turns
+            if p in self.turns:  # if position is in the turns
                 turn = self.turns[p]
                 c.move(turn[0], turn[1])
                 if i == len(self.body):
                     self.turns.pop(p)
 
-            else:
-                if c.dirnx == -1 and c.pos[0] <= 0:
-                    c.pos=(c.rows -1, c.pos[1])
-                elif c.dirnx == 1 and c.pos[0] >= 0:
+            else:  # edges
+                if c.dirnx == -1 and c.pos[0] <= 0:  # left
+                    c.pos = (c.rows - 1, c.pos[1])
+                elif c.dirnx == 1 and c.pos[0] >= 0:  # right
                     c.pos = (0, c.pos[1])
-                elif c.dirny == 1 and c.pos[1] >= 0:
+                elif c.dirny == 1 and c.pos[1] >= 0:  # bottom
                     c.pos = (c.pos[0], 0)
-                elif c.dirny == -1 and c.pos[1] <= 0:
-                    c.pos = (c.pos[0], c.rows -1)
-                else:
+                elif c.dirny == -1 and c.pos[1] <= 0:  # top
+                    c.pos = (c.pos[0], c.rows - 1)
+                else:  # not turning not going to the egdes
                     c.move(c.dirnx, c.dirny)
+
+
+def reset(self, pos):
+    pass
+
+
+def addCube(self):
+    pass
+
+
+def draw(self, surface):
+    for i, c in enumerate(self.body):
+        if i == 0:
+            c.draw(surface, True)
+        else:
+            c.draw(surface)
 
 
 def drawGrid(w, rows, surface):
